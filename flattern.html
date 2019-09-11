@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>Flattern Array</title>
+<link href="assets/css/bootstrap.css" rel="stylesheet">
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.js"></script>
+<script>
+
+function flatten(arr, returnval) {
+  
+  var input = JSON.parse("[" + arr + "]");
+	
+  var length = input.length;
+  var count, value, message;
+  
+  if (!returnval) {
+    returnval = [];
+  }
+  for (count = 0; count < length; count++) {
+    value = input[count];
+	
+    if (value instanceof Array) {
+      
+	  flatten(value, returnval);
+	  
+    } else {
+	
+      if (Number.isInteger(value)) {       		
+		returnval.push(value);		
+      }
+    }
+  }
+  
+  return returnval;
+}
+
+
+function FlatternArray(){
+
+	$("#lblResult").text("");
+
+	var txtval = $("#txtInput").val();
+	if(txtval == "")
+	{
+		alert("Please enter input");
+		return;
+	}
+	
+	var result = flatten(txtval);
+	
+	$("#lblResult").text(result);
+
+}
+
+</script>
+</head>
+<body>
+    <div style="margin-left:20%; margin-top:5%;" class="col-md-8 row">
+		<div class="form-group">
+			<div style="width:100% !important;">
+				<label>Enter valid array input</label>
+			</div>
+			<div style="width:75% !important; display:inline-block;">
+				<input id="txtInput" type="text" class="form-control" />			  
+			</div>
+			<div style="width:20% !important; display:inline-block;">
+				<a href="javascript:;" onclick="FlatternArray()" style="width:100%" class="btn btn-primary">Convert</a>
+			</div>
+			
+		</div>
+		<div class="form-group">
+			<label>Output</label>
+			<h1 id="lblResult"></h1>
+		</div>		
+	</div>
+</body>
+</html>
